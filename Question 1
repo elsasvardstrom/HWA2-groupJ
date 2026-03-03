@@ -1,1 +1,173 @@
-Elsa will paste overleaf code here
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+\title{Homework Assignment 2 - Advanced Econometrics}
+\author{Måns Conradson, Teerth Gupta, Elsa Svärdström \& Jacob Telander}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Question 1}
+\subsection{(a) Heuristic argument}
+Consider the partitioned data matrix 
+$$X = [X_1 : X_2] \, ,$$
+where $X_1$ is an $(n \times k_1)$-matrix containing a set of regressors and $X_2$ is an $(n \times k_2)$-matrix containing additional regressors. Let $R_1^2$ denote the R-square (the coefficient of determination) from regressing $y$ on $X_1$, and let $R_2^2$ denote the R-square from regressing $y$ on $X = [X_1:X_2]$. We will show heuristically that:
+$$R_2^2 \geq R_1^2$$
+Let $\mathcal{S}_1=\text{Col}(X_1) \, , \quad\quad \mathcal{S}_2=\text{Col}(X) = \text{Col}([X_1:X_2])$\\
+Since $X$ contains all columns in $X_1$ together with additional columns from $X_2$, it follows that:
+$$
+\mathcal{S}_1 \subseteq \mathcal{S}_2\, .
+$$
+OLS can be interpreted geometrically as an orthogonal projection of $y$ onto the column space of the regressors. Regressing $y$ on $X_1$ gives the fitted values $\hat y_1\in \mathcal{S}_1$ and the residual vector:
+$$
+\hat e_1 = y - \hat y_1\, ,
+\qquad
+SSE_1=\hat e_1'\hat e_1 \, .
+$$
+Regressing $y$ on $X = [X_1:X_2]$ gives the fitted values $\hat y_2\in \mathcal{S}_2$ and the residual vector:
+$$
+\hat e_2 = y-\hat y_2 \, , \qquad SSE_2=\hat e_2'\hat e_2 \, .
+$$
+Since $\mathcal{S}_1 \subseteq \mathcal{S}_2$, the  minimization in the second regression is performed over a larger set of candidate fitted values. Therefore, it minimizes the quadratic distance from $y$ over a larger set of candidate fitted values. Hence, the minimum quadratic distance cannot increase when moving from $\mathcal{S}_1$ to $\mathcal{S}_2$, which implies:
+$$SSE_2 \le SSE_1$$
+Finally, with an intercept included, the R-square can be written as:
+$$
+R^2 = 1-\frac{SSE}{TSS}\, ,
+\qquad
+TSS=\sum_{i=1}^n (y_i-\bar y)^2\, .
+$$
+Since $TSS$ only depends on $y$ it is the same in both regressions. Therefore, it follows from $SSE_2\le SSE_1$ that:
+$$
+R_2^2
+=1-\frac{SSE_2}{TSS}
+\ge
+1-\frac{SSE_1}{TSS}
+=R_1^2 \, .
+$$
+Thus, adding regressors cannot decrease $R^2$.
+\subsection{(b) Rigorously prove that $R_2^2 \geq R_1^2$ using matrix algebra}
+We consider the two regressions:
+\begin{itemize}
+    \item Model 1: regress y on $X_1$: $y = X_1\beta_1 + e_1$.
+    \item Model 2: regress y on $X = [X_1 : X_2]$: $y = X\beta + e_2$, where $\beta=(\beta_1',\beta_2')'$
+\end{itemize}
+Assume that both $X_1$ and $X$ include a column of ones so that an intercept is present. And further that $X_1'X_1$ and $X'X$ are invertible, which guarantees the existence and uniqueness of the OLS estimators.
+\\\\
+\textbf{Step 1: Reduce the statement to an inequality in SSE}\\
+With an intercept included, the R-square (the coefficient of determination) can be written as:
+$$
+R^2 = 1 - \frac{SSE}{TSS}\, ,
+\qquad
+SSE = \hat e' \hat e \, , 
+\qquad
+TSS = (y-\bar y \mathbf{1})'(y-\bar y \mathbf{1}) \,.
+$$
+Since $TSS$ only depends on $y$, it is the same in both regressions. Therefore,
+$$
+R_2^2 \ge R_1^2
+\ \Longleftrightarrow\
+1-\frac{SSE_2}{TSS}\ge 1-\frac{SSE_1}{TSS}
+\ \Longleftrightarrow\
+SSE_2\le SSE_1 \, .
+$$
+It suffices to show that $SSE_2\le SSE_1$.\\\\
+\textbf{Step 2: Orthogonality of the full-model residual}\\
+We define and expand the objective function:
+$$
+Q(\beta)
+= (y - X\beta)'(y - X\beta) 
+= y'y - y'X\beta - \beta'X'y + \beta'X'X\beta $$
+Since $y'X\beta = \beta'X'y$, we get
+$$
+Q(\beta)= y'y - 2\beta'X'y + \beta'X'X\beta \, .
+$$
+Differentiating term by term with respect to $\beta$ yields, it gives:
+$$
+\frac{\partial Q(\beta)}{\partial \beta}
+= -2X'y + 2X'X\beta
+= -2X'(y - X\beta) \, .
+$$
+where we use that $X'X$ is symmetric.\\
+Setting the derivative to zero at the minimizer $\hat\beta$ we have:
+$$
+X'(y - X\hat\beta)=0 \,.
+$$
+Hence,
+$$
+X'\hat e_2 = 0 \,.
+$$
+The residual $\hat e_2$ is orthogonal to all columns of $X$. Similarly for Model 1:
+$$
+X_1'\hat e_1=0.
+$$
+\textbf{Step 3: Comparing the two residuals}\\
+Write $\beta=(\beta_1',\beta_2')'$ so that $X\beta=X_1\beta_1+X_2\beta_2$. \\
+Let 
+$$
+\hat e_1 = y - X_1\hat\beta_1 \,,
+\qquad
+\hat e_2 = y - X\hat\beta \,.
+$$
+Then:
+$$
+\hat e_1 - \hat e_2
+= (y - X_1\hat\beta_1) - (y - X\hat\beta)
+= X\hat\beta - X_1\hat\beta_1.
+$$
+Note that: 
+$$X\hat\beta \in \text{Col}(X),
+\qquad
+X_1\hat\beta_1 \in \text{Col}(X_1)\, .$$
+Since $\text{Col}(X_1) \subseteq \text{Col}(X)$, both terms belong to $\text{Col}(X)$.  Since the column space is closed under subtraction and addition, it follows that
+$$
+\hat e_1 - \hat e_2 \in \text{Col}(X).
+$$
+From "Step 2", $\hat e_2$ is orthogonal to $\text{Col}(X)$, hence
+$$
+\hat e_2'(\hat e_1 - \hat e_2) = 0\, .
+$$
+\textbf{Step 4: Expand $SSE_1$}\\
+We have that:
+$$
+SSE_1 = \hat e_1' \hat e_1
+= (\hat e_2 + (\hat e_1 - \hat e_2))'
+  (\hat e_2 + (\hat e_1 - \hat e_2))\, ,
+$$
+expanding
+$$
+SSE_1
+= \hat e_2'\hat e_2
++ 2\hat e_2'(\hat e_1 - \hat e_2)
++ (\hat e_1 - \hat e_2)'(\hat e_1 - \hat e_2)\, .
+$$
+By the orthogonality, the middle term is zero, so
+$$
+SSE_1
+= \hat e_2'\hat e_2
++ (\hat e_1 - \hat e_2)'(\hat e_1 - \hat e_2)\, .
+$$
+The last term is non-negative since it is quadratic form:
+$$
+SSE_1 \ge \hat e_2'\hat e_2 = SSE_2 \, .
+$$
+\textbf{Conclusion}\\
+Since $SSE_2 \le SSE_1$, it follows that
+$$
+R_2^2
+= 1 - \frac{SSE_2}{TSS}
+\ge
+1 - \frac{SSE_1}{TSS}
+= R_1^2\, .
+$$
+Thus, adding regressors cannot decrease $R^2$. Finally, we have:
+$$
+\boxed{R_2^2 \ge R_1^2}
+$$
+
+\end{document}
+
