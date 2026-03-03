@@ -1,0 +1,427 @@
+\subsection*{a) Prove rigorously that \(A^{-1}\) is symmetric}
+
+We start from
+\[
+AA^{-1}=I.
+\]
+Taking transposes of both sides gives
+\[
+(AA^{-1})^T = I^T.
+\]
+Using the rule \((XY)^T = Y^T X^T\), we obtain
+\[
+(A^{-1})^T A^T = I.
+\]
+Since \(A\) is symmetric, \(A^T = A\), so
+\[
+(A^{-1})^T A = I.
+\]
+Multiplying on the right by \(A^{-1}\), we get
+\[
+(A^{-1})^T AA^{-1} = IA^{-1},
+\]
+hence
+\[
+(A^{-1})^T = A^{-1}.
+\]
+Therefore, \(A^{-1}\) is symmetric.
+
+\subsection*{b) Prove rigorously that \(A^{-1}\) is positive definite}
+
+To show that \(A^{-1}\) is positive definite, we must prove that
+\[
+x^T A^{-1} x > 0 \qquad \text{for all } x \neq 0.
+\]
+Let
+\[
+y = A^{-1}x.
+\]
+Then
+\[
+x = Ay.
+\]
+Substituting into the quadratic form gives
+\[
+x^T A^{-1} x = (Ay)^T A^{-1} (Ay).
+\]
+Now
+\[
+(Ay)^T = y^T A^T,
+\]
+so
+\[
+x^T A^{-1} x = y^T A^T A^{-1} A y.
+\]
+Since \(A\) is symmetric, \(A^T = A\), and since \(A^{-1}A = I\), we get
+\[
+x^T A^{-1} x = y^T A y.
+\]
+Because \(A\) is invertible, \(x \neq 0\) implies \(y \neq 0\). Since \(A\) is positive definite,
+\[
+y^T A y > 0 \qquad \text{for all } y \neq 0.
+\]
+Therefore,
+\[
+x^T A^{-1} x > 0 \qquad \text{for all } x \neq 0,
+\]
+which proves that \(A^{-1}\) is positive definite.
+
+\subsection*{c) Prove rigorously that \(I-A\) is positive definite if and only if \(A^{-1}-I\) is positive definite}
+
+Since \(A\) is symmetric and positive definite, there exists a symmetric positive definite matrix \(C\) such that
+\[
+C^2 = A.
+\]
+
+First assume that \(I-A \succ 0\). Then for all \(x \neq 0\),
+\[
+x^T (I-A) x > 0.
+\]
+Using \(A=C^2\), this becomes
+\[
+x^T (I-C^2) x > 0.
+\]
+Define
+\[
+z = Cx.
+\]
+Since \(C\) is invertible, \(x \neq 0\) if and only if \(z \neq 0\), and
+\[
+x = C^{-1}z.
+\]
+Substituting gives
+\[
+x^T (I-C^2) x
+= (C^{-1}z)^T (I-C^2) (C^{-1}z).
+\]
+Since \(C\) is symmetric, \((C^{-1})^T = C^{-1}\), so
+\[
+(C^{-1}z)^T (I-C^2) (C^{-1}z)
+= z^T C^{-1} (I-C^2) C^{-1} z.
+\]
+Expanding,
+\[
+z^T C^{-1} (I-C^2) C^{-1} z
+= z^T (C^{-2} - I) z.
+\]
+Because \(C^2 = A\), we have \(C^{-2} = A^{-1}\). Hence
+\[
+z^T (A^{-1} - I) z > 0
+\qquad \text{for all } z \neq 0.
+\]
+Therefore,
+\[
+A^{-1} - I \succ 0.
+\]
+
+Conversely, assume that
+\[
+A^{-1} - I \succ 0.
+\]
+Then for all \(z \neq 0\),
+\[
+z^T (A^{-1} - I) z > 0.
+\]
+Let
+\[
+z = Cx.
+\]
+Since \(C\) is invertible, \(z \neq 0\) if and only if \(x \neq 0\). Then
+\[
+0 < (Cx)^T (A^{-1} - I) (Cx).
+\]
+Since \(C\) is symmetric,
+\[
+(Cx)^T (A^{-1} - I) (Cx)
+= x^T C (A^{-1} - I) C x.
+\]
+Thus
+\[
+0 < x^T (CA^{-1}C - C^2)x.
+\]
+Because \(A=C^2\), we have \(A^{-1}=C^{-2}\), so
+\[
+CA^{-1}C = CC^{-2}C = I.
+\]
+Therefore,
+\[
+0 < x^T (I-A)x
+\qquad \text{for all } x \neq 0.
+\]
+Hence
+\[
+I-A \succ 0.
+\]
+
+So we conclude that
+\[
+I-A \succ 0
+\iff
+A^{-1}-I \succ 0.
+\]
+
+\subsection*{d) Prove rigorously that \(C^{-1}BC^{-1}\) is symmetric and positive definite}
+
+We know that \(A\) and \(B\) are symmetric positive definite and that
+\[
+C^2 = A.
+\]
+
+First, we show symmetry. Consider
+\[
+(C^{-1}BC^{-1})^T.
+\]
+Using \((XYZ)^T = Z^T Y^T X^T\), we get
+\[
+(C^{-1}BC^{-1})^T = (C^{-1})^T B^T (C^{-1})^T.
+\]
+Since \(B\) is symmetric, \(B^T = B\). Also, \(C\) is symmetric, so \(C^{-1}\) is symmetric, which means
+\[
+(C^{-1})^T = C^{-1}.
+\]
+Hence
+\[
+(C^{-1}BC^{-1})^T = C^{-1}BC^{-1}.
+\]
+Therefore, \(C^{-1}BC^{-1}\) is symmetric.
+
+Now we show positive definiteness. Let \(x \neq 0\), and define
+\[
+y = C^{-1}x.
+\]
+Since \(C\) is invertible, \(x \neq 0\) implies \(y \neq 0\), and
+\[
+x = Cy.
+\]
+Then
+\[
+x^T (C^{-1}BC^{-1}) x
+= (Cy)^T (C^{-1}BC^{-1}) (Cy).
+\]
+Since \(C\) is symmetric,
+\[
+(Cy)^T = y^T C^T = y^T C,
+\]
+so
+\[
+x^T (C^{-1}BC^{-1}) x
+= y^T C(C^{-1}BC^{-1})Cy.
+\]
+Simplifying,
+\[
+y^T C(C^{-1}BC^{-1})Cy
+= y^T (CC^{-1})B(C^{-1}C)y
+= y^T IBI y
+= y^T B y.
+\]
+Since \(B\) is positive definite and \(y \neq 0\),
+\[
+y^T B y > 0.
+\]
+Therefore,
+\[
+x^T (C^{-1}BC^{-1}) x > 0
+\qquad \text{for all } x \neq 0.
+\]
+Hence \(C^{-1}BC^{-1}\) is positive definite.
+
+\subsection*{e) Prove that \(B-A\) is positive definite if and only if \(A^{-1}-B^{-1}\) is positive definite}
+
+We now prove that
+\[
+B-A \succ 0
+\iff
+A^{-1}-B^{-1} \succ 0.
+\]
+
+Since \(A\) is positive definite, there exists a symmetric positive definite matrix \(C\) such that
+\[
+C^2 = A.
+\]
+
+First assume that
+\[
+B-A \succ 0.
+\]
+Then for all \(x \neq 0\),
+\[
+x^T(B-A)x > 0.
+\]
+Using \(A=C^2\), this becomes
+\[
+x^T(B-C^2)x > 0.
+\]
+
+Define
+\[
+z = Cx.
+\]
+Since \(C\) is invertible, \(z \neq 0\) if and only if \(x \neq 0\), and
+\[
+x = C^{-1}z.
+\]
+Substituting gives
+\[
+x^T(B-C^2)x
+=
+(C^{-1}z)^T(B-C^2)(C^{-1}z).
+\]
+Since \(C\) is symmetric, \((C^{-1})^T = C^{-1}\), so
+\[
+(C^{-1}z)^T(B-C^2)(C^{-1}z)
+=
+z^T C^{-1}(B-C^2)C^{-1}z.
+\]
+Hence
+\[
+z^T C^{-1}(B-C^2)C^{-1}z
+=
+z^T(C^{-1}BC^{-1}-I)z.
+\]
+Therefore,
+\[
+z^T(C^{-1}BC^{-1}-I)z > 0
+\qquad \text{for all } z \neq 0,
+\]
+which implies
+\[
+C^{-1}BC^{-1}-I \succ 0.
+\]
+
+From part d), the matrix \(M=C^{-1}BC^{-1}\) is symmetric positive definite. Hence, we can apply the results from part c) that for any symmetric positive definite matrix \(M\),
+\[
+M-I \succ 0
+\iff
+I-M^{-1} \succ 0.
+\]
+Applying this with
+\[
+M = C^{-1}BC^{-1},
+\]
+we obtain
+\[
+I-(C^{-1}BC^{-1})^{-1} \succ 0.
+\]
+Now compute the inverse:
+\[
+(C^{-1}BC^{-1})^{-1} = CB^{-1}C.
+\]
+Hence
+\[
+I-CB^{-1}C \succ 0.
+\]
+Since \(I = CA^{-1}C\), this implies
+\[
+CA^{-1}C - CB^{-1}C \succ 0.
+\]
+Factoring out \(C\), we obtain
+\[
+C(A^{-1}-B^{-1})C \succ 0.
+\]
+Because congruence with an invertible matrix preserves positive definiteness, this is equivalent to
+\[
+A^{-1}-B^{-1} \succ 0.
+\]
+
+The reverse implication follows by reversing the same steps. Therefore,
+\[
+B-A \succ 0
+\iff
+A^{-1}-B^{-1} \succ 0.
+\]
+
+\subsection*{Question 4(a)}
+
+We want to prove that
+\[
+\sigma^2 (X'P_{Z_1}X)^{-1} - \sigma^2 (X'P_ZX)^{-1}
+\]
+is positive semidefinite.
+
+Since \(\sigma^2 > 0\), it is enough to show that
+\[
+(X'P_{Z_1}X)^{-1} - (X'P_ZX)^{-1}
+\]
+is positive semidefinite.
+
+Let
+\[
+A = X'P_{Z_1}X,
+\qquad
+B = X'P_ZX.
+\]
+Then our goal is to prove that
+\[
+A^{-1} - B^{-1} \succeq 0.
+\]
+
+Because \(Z=[Z_1:Z_2]\), the column space of \(Z_1\) is a subspace of the column space of \(Z\), that is,
+\[
+\operatorname{col}(Z_1) \subseteq \operatorname{col}(Z).
+\]
+Hence, projection onto \(\operatorname{col}(Z)\) is projection onto a larger subspace than projection onto \(\operatorname{col}(Z_1)\).
+
+Define
+\[
+M_{Z_1}=I-P_{Z_1},
+\qquad
+\widetilde Z_2 = M_{Z_1}Z_2.
+\]
+Then \(\widetilde Z_2\) is the part of \(Z_2\) orthogonal to \(\operatorname{col}(Z_1)\). Therefore, the projection onto \(\operatorname{col}(Z)\) can be written as
+\[
+P_Z = P_{Z_1} + P_{\widetilde Z_2}.
+\]
+Thus,
+\[
+P_Z - P_{Z_1} = P_{\widetilde Z_2}.
+\]
+Since every projection matrix is symmetric and positive semidefinite,
+\[
+P_Z - P_{Z_1} \succeq 0.
+\]
+
+Now consider
+\[
+B-A = X'P_ZX - X'P_{Z_1}X = X'(P_Z-P_{Z_1})X.
+\]
+To show that this matrix is positive semidefinite, let \(a\) be any vector. Then
+\[
+a'(B-A)a = a'X'(P_Z-P_{Z_1})Xa = (Xa)'(P_Z-P_{Z_1})(Xa).
+\]
+Since \(P_Z-P_{Z_1} \succeq 0\), we have
+\[
+(Xa)'(P_Z-P_{Z_1})(Xa) \ge 0.
+\]
+Hence
+\[
+a'(B-A)a \ge 0
+\qquad \text{for all } a,
+\]
+which proves that
+\[
+B-A \succeq 0.
+\]
+Therefore,
+\[
+B \succeq A.
+\]
+
+Under the usual rank assumptions, both \(A\) and \(B\) are positive definite, so they are invertible. By the result from Question 3(e) (equivalently, the standard order-reversing property of inversion for positive definite matrices), from
+\[
+B \succeq A \succ 0
+\]
+it follows that
+\[
+A^{-1} \succeq B^{-1}.
+\]
+That is,
+\[
+(X'P_{Z_1}X)^{-1} - (X'P_ZX)^{-1} \succeq 0.
+\]
+
+Finally, multiplying by \(\sigma^2 > 0\) preserves positive semidefiniteness, so
+\[
+\sigma^2 (X'P_{Z_1}X)^{-1} - \sigma^2 (X'P_ZX)^{-1} \succeq 0.
+\]
+
+Therefore, the difference is positive semidefinite, as required.
