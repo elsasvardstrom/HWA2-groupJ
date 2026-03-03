@@ -1,1 +1,168 @@
-Will paste code when complete
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amssymb}
+\title{Advanced Econometrics - HWA 2, Group J}
+\author{Måns Conradson}
+\date{March 2026}
+
+\begin{document}
+
+\maketitle
+\section{Problem 2}
+\subsection{(a)}
+
+Prove $E(e)=0$ and compute $V(e)$
+
+Dimensions: 
+\[\textbf{X}\in \mathbb{R}^{n\times k}\]
+\[e \in \mathbb{R}^{n \times1}\]
+\[\gamma \in \mathbb{R}^{k \times 1}\]
+
+Starting with $E(e)$, we can use the law of iterated expectations: $E(e)=E[E(e|\textbf{X})]$. 
+
+\[E(e)=E[E(e|\textbf{X})]=E(\textbf{X}\gamma)\]
+
+$\gamma$ is a fixed vector, it can therefore be pulled out from the expectation.
+
+\[E(\textbf{X}\gamma)=E(\textbf{X)}\gamma\]
+
+\[E(\textbf{X})=0 \textit{ since } E(x_i)=0\]
+\[E(e)=E(\textbf{X})\gamma=0\]
+\[\boxed{E(e)=0}\]
+
+Moving on to computing $V(e)$, we know the definition of the variance is $V(e)=E[(e-E[e])(e-E[e])^T]$. Because $E(e)=0$, the variance becomes $V(e)=E(ee^T)$. So we can write 
+
+\[E(ee^T)=E[E(ee^T|\textbf{X})]\]
+
+Define the deviation from the conditional mean: 
+
+\[u = e-E[e|\textbf{X}]\]
+
+Then $E[u|\textbf{X}]=0$ by construction. Also, since the assignment assumes $E[e|\textbf{X}]=\textbf{X}\gamma$ we can then write.
+
+\[e=u+\textbf{X}\gamma\]
+
+Now expand $ee^T$.
+
+\[ee^T=(u+\textbf{X}\gamma)(u+\textbf{X}\gamma)^T=uu^T+u(\textbf{X}\gamma)^T+(\textbf{X}\gamma)u^T+(\textbf{X}\gamma)(\textbf{X}\gamma)^T\]
+
+Take the conditional expectation given \textbf{X}:
+
+\[E[ee^T|\textbf{X}]=E[uu^T|\textbf{X}]+E[u|\textbf{X}](\textbf{X}\gamma)^T+(\textbf{X}\gamma)E[u^T|\textbf{X}]+(\textbf{X}\gamma)(\textbf{X}\gamma)^T\]
+
+Since $E[u|\textbf{X}]=0$, the cross terms vanish and using $V[e|\textbf{X}]=\sigma^2\textbf{I}_n$,
+
+\[E[uu^T|\textbf{X}]=V(e|\textbf{X})=\sigma^2\textbf{I}_n\]
+
+This means that
+
+\[E[ee^T|\textbf{X}]=\sigma^2\textbf{I}_n+(\textbf{X}\gamma)(\textbf{X}\gamma)^T\]
+
+Taking expectations
+
+\[V(e)=E[ee^T]=\sigma^2\textbf{I}_n+E[(\textbf{X}\gamma)(\textbf{X}\gamma)^T]\]
+
+When computing $E[(\textbf{X}\gamma)(\textbf{X}\gamma)^T]$, we can note that the $i, j$ elements equals $E[(x_i^T\gamma)(x_j^T\gamma)]$. If $i \not=j$, because of independence we get that
+
+\[E[(x_i^T\gamma)(x_j^T\gamma)]= E[x_i^T\gamma]E[x_j^T\gamma]=0\]
+
+Since $E[x_i]=0 \xrightarrow{}E(x_i^T\gamma)=0$. If $i = j$, we instead get that
+
+\[E[(x_i^T\gamma)^2]=E[\gamma^Tx_ix_i^T\gamma]=\gamma^TE[x_ix_i^T]\gamma=\gamma^TV(x_i)\gamma\]
+
+where the last equality uses the fact that $E[x_i]=0$. This means the matrix $E[(\textbf{X}\gamma)(\textbf{X}\gamma)^T]$ has identical diagonal elements $\gamma^TV(x_i)\gamma$ and zeros off-diagonal, this means that
+
+\[E[(\textbf{X}\gamma)(\textbf{X}\gamma)^T]=(\gamma^TV(x_i)\gamma)\textbf{I}_n\]
+
+Therefore,
+
+\[\boxed{V(e)=\sigma^2\textbf{I}_n+(\gamma^TV(x_i)\gamma)\textbf{I}_n}\]
+
+
+
+
+
+
+\subsection{(b)}
+
+\[y = \textbf{X}\beta+e\]
+\[E(e|\textbf{X})=\textbf{X}\gamma\]
+\[V(e|\textbf{X)}=\sigma^2\textbf{I}_n\]
+
+OLS: $\hat{\beta}=(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^Ty \xleftarrow{}$ OLS definition
+
+Substitute in $y=\textbf{X}\beta+e$
+
+\[\hat{\beta}=(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^T(\textbf{X}\beta+e)\]
+
+\[=(\textbf{X}^T\textbf{X})^{-1}(\textbf{X}^T\textbf{X}\beta+\textbf{X}^Te)\]
+
+\[(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^T\textbf{X}\beta+(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^T
+e\]
+
+Because $(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^T\textbf{X}=\textbf{I}_k$, the first term equals $\beta$.
+
+\[\hat{\beta}=\beta+(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^Te\]
+
+Now we can start compyting $E(\hat{\beta|\textbf{X})}$
+
+\[E(\hat{\beta}|\textbf{X})=E[\beta+(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^Te|\textbf{X}]\]
+
+\[=\beta+(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^TE(e|\textbf{X}) \xrightarrow{}E(e|\textbf{X})=\textbf{X}\gamma\]
+
+\[=\beta+(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^T(\textbf{X}\gamma)\]
+
+\[\beta+(\textbf{X}^T\textbf{X})^{-1}(\textbf{X}^T\textbf{X})\gamma \xrightarrow{}(\textbf{X}^T\textbf{X})^{-1}(\textbf{X}^T\textbf{X})=\textbf{I}_k\]
+
+\[\boxed{E(\hat{\beta|\textbf{X})=\beta+\gamma}}\]
+
+Moving on to computing $V[\hat{\beta}|\textbf{X}]$. Using the conditional variance of a rnadom vector given \textbf{X} is:
+
+\[V[Z|X]=E[(Z-E[Z|X])(Z-E[Z|X])^T|X]\]
+
+We apply this with $Z = \hat{\beta}$, we then need $\hat{\beta}-E[\hat{\beta}|\textbf{X}]$
+
+\[\hat{\beta}-E[\hat{\beta}|\textbf{X}]=(\beta+(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^Te)-(\beta+\gamma)\]
+
+\[=(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^Te-\gamma\]
+
+Since $E[e|\textbf{X}]=\textbf{X}\gamma$, we can write.
+
+\[\gamma=(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^T\textbf{X}\gamma=(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^TE[e|\textbf{X}]\]
+
+\[(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^Te-\gamma=(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^Te-(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^TE[e|\textbf{X}]\]
+
+\[\hat{\beta}-E[\hat{\beta}|\textbf{X}]=(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^T(e-E[e|\textbf{X}])\]
+
+We define $u=e-E[e|\textbf{X}]$
+
+\[\hat{\beta}-E[\hat{\beta}|\textbf{X}]=(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^Tu\]
+
+Now we apply the conditional variance definition.
+
+\[V[\hat{\beta}|\textbf{X}]=E[((\textbf{X}^T\textbf{X})^{-1}\textbf{X}^Tu)((\textbf{X}^T\textbf{X})^{-1}\textbf{X}^Tu)^T|\textbf{X}]\]
+
+\[=E[(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^Tuu^T\textbf{X}(\textbf{X}^T\textbf{X})^{-1}|\textbf{X}]\]
+
+Take out the nonrandom terms given \textbf{X} out of the expectation.
+
+\[V[\hat{\beta}|\textbf{X}]=(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^TE[uu^T|\textbf{X}]\textbf{X}(\textbf{X}^T\textbf{X})^{-1}\]
+
+By definition of conditional variance, since $u=e-E[e|\textbf{X}]$.
+
+\[E[uu^T|\textbf{X}]=V[e|\textbf{X}]=\sigma^2\textbf{I}_n\]
+
+Substitute the value in.
+
+\[V[\hat{\beta}|\textbf{X}]=(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^T(\sigma^2\textbf{I}_n)\textbf{X}(\textbf{X}^T\textbf{X})^{-1}\]
+
+\[
+=\sigma^2(\textbf{X}^T\textbf{X})^{-1}\textbf{X}^T\textbf{X}(\textbf{X}^T\textbf{X})^{-1}
+=\sigma^2(\textbf{X}^T\textbf{X})^{-1}.
+\]
+Therefore:
+
+\[\boxed{V[\hat{\beta}|\textbf{X}]=\sigma^2(\textbf{X}^T\textbf{X})^{-1}}\]
+
+\end{document}
