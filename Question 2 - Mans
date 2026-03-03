@@ -10,7 +10,7 @@
 
 \maketitle
 \section{Problem 2}
-\subsection{(a)}
+\subsection{a) Prove that rigorously that $E[e]=0, V[e]=\sigma^2\textbf{I}+\gamma^TV[x]\gamma$}
 
 Prove $E(e)=0$ and compute $V(e)$
 
@@ -84,7 +84,7 @@ Therefore,
 
 
 
-\subsection{(b)}
+\subsection{b) Prove rigorously using the OLS estimator $\hat{\beta}$, that $E[\hat{\beta}|\textbf{X}]=\beta+\gamma, V[\hat{\beta}|\textbf{X}]=\sigma^2(\textbf{X}^T\textbf{X})^{-1}$}
 
 \[y = \textbf{X}\beta+e\]
 \[E(e|\textbf{X})=\textbf{X}\gamma\]
